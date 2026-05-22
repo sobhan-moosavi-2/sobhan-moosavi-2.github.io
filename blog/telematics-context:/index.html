@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Insurer Is Watching — But Not Listening | Sobhan Moosavi</title>
+  <meta name="description" content="Telematics apps like State Farm's Drive Safe & Save score your driving without any context. Here's why that's a fundamental problem — and why the research to fix it already exists." />
+  <link rel="canonical" href="https://smoosavi.org/blog/telematics-context/" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --ink: #1a1814;
+      --ink-light: #5a5650;
+      --ink-faint: #9a9590;
+      --accent: #b5460f;
+      --accent-soft: #e8d5cc;
+      --border: #ddd9d2;
+      --white: #ffffff;
+      --sans: 'DM Sans', sans-serif;
+      --serif: 'Cormorant Garamond', serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 64px;
+      background: rgba(247,245,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-name {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 400;
+      letter-spacing: 0.01em; color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 300;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-light); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* ── ARTICLE LAYOUT ── */
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 2rem 6rem;
+    }
+
+    /* ── HEADER ── */
+    .post-meta {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: flex; gap: 1.5rem; align-items: center;
+    }
+    .post-meta span { color: var(--ink-faint); }
+
+    h1.post-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 300; line-height: 1.08;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+
+    .post-lede {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1.2rem; font-weight: 300; line-height: 1.6;
+      color: var(--ink-light);
+      border-left: 2px solid var(--accent-soft);
+      padding-left: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .post-divider {
+      width: 40px; height: 1px;
+      background: var(--accent-soft);
+      margin: 2.5rem 0;
+    }
+
+    /* ── BODY TEXT ── */
+    .post-body p {
+      font-size: 1rem; line-height: 1.85;
+      color: var(--ink-light);
+      margin-bottom: 1.6rem;
+    }
+
+    .post-body p strong {
+      color: var(--ink); font-weight: 500;
+    }
+
+    .post-body h2 {
+      font-family: var(--serif);
+      font-size: 1.9rem; font-weight: 300;
+      color: var(--ink); margin: 3rem 0 1rem;
+      line-height: 1.2;
+    }
+
+    .post-body h3 {
+      font-family: var(--mono);
+      font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin: 2.5rem 0 0.75rem;
+    }
+
+    .post-body a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-soft);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+    .post-body a:hover { text-decoration-color: var(--accent); }
+
+    /* ── PULL QUOTE ── */
+    blockquote {
+      margin: 2.5rem 0;
+      padding: 1.5rem 2rem;
+      border-left: 3px solid var(--accent);
+      background: var(--white);
+    }
+    blockquote p {
+      font-family: var(--serif);
+      font-size: 1.25rem !important;
+      font-style: italic;
+      color: var(--ink) !important;
+      line-height: 1.5 !important;
+      margin: 0 !important;
+    }
+    blockquote cite {
+      display: block; margin-top: 0.75rem;
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-faint); font-style: normal;
+    }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 1.5rem 1.75rem;
+      margin: 2.5rem 0;
+    }
+    .callout-label {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .callout p {
+      font-size: 0.9rem !important;
+      color: var(--ink-light) !important;
+      margin: 0 !important; line-height: 1.75 !important;
+    }
+
+    /* ── FIGURE / IMAGE ── */
+    figure {
+      margin: 2.5rem 0;
+    }
+    figure img {
+      width: 100%; display: block;
+      border: 1px solid var(--border);
+    }
+    figcaption {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.06em; color: var(--ink-faint);
+      margin-top: 0.6rem; line-height: 1.5;
+    }
+
+    /* ── SCORING GRID ── */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+    .score-cell {
+      background: var(--white);
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+    .score-icon {
+      font-size: 1.5rem; margin-bottom: 0.4rem; display: block;
+    }
+    .score-label {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-light); display: block;
+    }
+
+    /* ── FOOTNOTES ── */
+    .footnotes {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .footnotes h3 {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 1rem;
+    }
+    .footnotes ol {
+      padding-left: 1.25rem;
+    }
+    .footnotes li {
+      font-size: 0.8rem; color: var(--ink-faint);
+      line-height: 1.7; margin-bottom: 0.5rem;
+    }
+    .footnotes li a {
+      color: var(--ink-faint);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+    }
+    sup {
+      font-family: var(--mono); font-size: 0.6rem;
+      color: var(--accent); vertical-align: super;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy {
+      font-family: var(--mono); font-size: 0.68rem;
+      color: var(--ink-faint); letter-spacing: 0.05em;
+    }
+    .footer-back {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-light); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-back:hover { color: var(--accent); }
+
+    @media (max-width: 860px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .article-wrap { padding: 100px 1.25rem 4rem; }
+      .score-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .score-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-name">Sobhan Moosavi</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#publications">Publications</a></li>
+      <li><a href="/#datasets">Datasets</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="/files/CV_Sobhan_Moosavi_2026.pdf" target="_blank">CV</a></li>
+    </ul>
+  </nav>
+
+  <article class="article-wrap">
+
+    <div class="post-meta">
+      <span>Blog</span> May 2026 <span>·</span> 10 min read
+    </div>
+
+    <h1 class="post-title">Your Insurer Is Watching — But Not Listening</h1>
+
+    <p class="post-lede">Telematics apps like State Farm's Drive Safe &amp; Save promise to reward safe drivers. But they measure <em>how</em> you drive while completely ignoring <em>where</em> — and that distinction matters more than the industry wants to admit.</p>
+
+    <div class="post-body">
+
+      <p>A few months ago I enrolled in <strong>State Farm's Drive Safe &amp; Save</strong> program. The premise is straightforward: let the app watch you drive, and if you're "safe," you save up to 30–50% on your premium.<sup>[1]</sup> You install a small Bluetooth beacon behind your rearview mirror, keep the State Farm app running on your phone, and go about your life. The app quietly grades every trip.</p>
+
+      <p>As someone who spent years doing research specifically on driving behavior and spatiotemporal data — and later built ML systems for routing and navigation at scale — I was curious. How good, actually, is the scoring? What does "safe" mean to the algorithm?</p>
+
+      <p>The short answer: it's watching the right things, but it's blind to what those things mean.</p>
+
+      <div class="post-divider"></div>
+
+      <h2>The Product: Drive Safe &amp; Save</h2>
+
+      <p>State Farm's telematics program, now in its third major version, is powered under the hood by <strong>Cambridge Mobile Telematics (CMT)</strong> — the world's largest smartphone telematics provider, whose DriveWell platform runs over 120 insurance programs across 25 countries.<sup>[2]</sup> CMT and State Farm have been partners since 2012.</p>
+
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/State_Farm_logo.svg/1200px-State_Farm_logo.svg.png" alt="State Farm logo" style="max-width:220px; border:none; background:transparent;" />
+        <figcaption>State Farm's Drive Safe &amp; Save is one of the most widely used telematics insurance programs in the US.</figcaption>
+      </figure>
+
+      <p>The app uses your phone's sensors — accelerometer, gyroscope, GPS — combined with the beacon to detect when you're driving, and scores each trip on five behaviors:<sup>[3]</sup></p>
+
+      <div class="score-grid">
+        <div class="score-cell">
+          <span class="score-icon">🚨</span>
+          <span class="score-label">Hard Braking</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-icon">⚡</span>
+          <span class="score-label">Rapid Acceleration</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-icon">↩️</span>
+          <span class="score-label">Sharp Cornering</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-icon">📵</span>
+          <span class="score-label">Phone Distraction</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-icon">🚀</span>
+          <span class="score-label">Speeding</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-icon">📍</span>
+          <span class="score-label">Mileage</span>
+        </div>
+      </div>
+
+      <p>Each trip gets a score, scores accumulate into a driving grade, and your insurance discount is adjusted at renewal. The engineering is genuinely impressive — CMT's platform analyzes data from tens of millions of drivers, uses ML to differentiate driver from passenger with 97% accuracy, and has reportedly helped prevent over 100,000 crashes worldwide.<sup>[4]</sup></p>
+
+      <p>So far, so good. Here's where things get interesting.</p>
+
+      <div class="post-divider"></div>
+
+      <h2>The Fundamental Problem: Behavior Without Context</h2>
+
+      <p>After a few weeks of using the app, a pattern emerged. Trips through my neighborhood — tight residential streets, lots of stop signs, the occasional parking lot detour — consistently scored worse than long highway stretches. Not because I drove more recklessly. Because the <em>road demanded more inputs</em>.</p>
+
+      <p>Consider these three scenarios, all of which the app scores identically or poorly:</p>
+
+      <h3>Scenario 1 — The sharp turn that wasn't</h3>
+      <p>A cloverleaf on-ramp. The road curves tightly by design, posted at 20 mph. I follow the curve at 22 mph. The accelerometer registers lateral G-force. The app logs a <strong>harsh cornering event</strong>. There is no meaningful safety signal here — I was following the road's geometry. But the algorithm has no map of road curvature. It sees a body being thrown sideways and penalizes it.</p>
+
+      <h3>Scenario 2 — Hard braking in traffic</h3>
+      <p>I'm on a busy arterial with a 45 mph limit, rush-hour traffic, and a stretch of closely spaced stoplights. The car two ahead stops suddenly. I brake firmly. To the physics sensor, this looks identical to reckless tailgating. The app has no awareness of <strong>traffic density, stop sign frequency, or upstream vehicle behavior</strong> — all the things that actually caused the event.</p>
+
+      <blockquote>
+        <p>"Traveling at 85 miles per hour on an empty freeway on a sunny day? That's some of the safest driving you can do. Going 55 mph when it's snowing and the other traffic is doing 30? That's extremely dangerous."</p>
+        <cite>— Digital Insurance, on why context-free telematics models fail<sup>[5]</sup></cite>
+      </blockquote>
+
+      <h3>Scenario 3 — The highway speed trap</h3>
+      <p>This is the most revealing one. A posted 65 mph limit on an interstate where traffic flows at 75–78 mph. <strong>Driving at the speed limit here is actually more dangerous than flowing with traffic</strong> — you become an obstacle, you force aggressive lane changes around you, and you increase the variance of relative speeds between vehicles, which is the real predictor of collision risk.<sup>[6]</sup> The app, however, rewards you for religiously staying at 65 and penalizes you for matching the flow.</p>
+
+      <div class="callout">
+        <div class="callout-label">The core issue</div>
+        <p>These apps measure <strong>driving inputs</strong> (braking force, acceleration rate, lateral G, phone motion) and compare them against fixed thresholds. They do not measure <strong>driving appropriateness</strong> — whether those inputs were warranted given road geometry, traffic conditions, speed differentials, or environment. The inputs are the same. The context is everything.</p>
+      </div>
+
+      <div class="post-divider"></div>
+
+      <h2>Why This Is Surprising — Given That the Research Exists</h2>
+
+      <p>Here is what genuinely puzzles me: the academic literature on context-aware driving risk prediction is not new. It is not obscure. And it is not difficult to implement given the data these platforms already collect.</p>
+
+      <p>During my PhD at Ohio State, working with spatiotemporal and telematics data, context was not an afterthought — it was the central question. My 2023 paper in <em>Accident Analysis &amp; Prevention</em>, <a href="https://www.sciencedirect.com/science/article/pii/S0001457522003657" target="_blank">"Context-aware driver risk prediction with telematics data"</a>, demonstrated directly that incorporating road structure, traffic flow, and environmental conditions dramatically improves the accuracy and fairness of risk models compared to behavior-only baselines.<sup>[7]</sup></p>
+
+      <p>The key insight is deceptively simple: <strong>the same driving input carries radically different risk depending on where it occurs.</strong> Hard braking at 15 mph in a parking lot is noise. Hard braking at 65 mph on a rain-slicked highway is a signal. A sharp turn at a freeway cloverleaf is geometry. A sharp turn on a straight arterial is a problem.</p>
+
+      <p>Broader academic work confirms this. A ScienceDirect study on context-sensitive UBI telematics found that <strong>driving at a speed significantly different from traffic flow</strong> — not just exceeding the posted limit — was among the strongest predictors of accident rate.<sup>[6]</sup> Another study found that behavioral traits like speeding <em>and</em> contextual data like road type and time of day together significantly outperform behavior-only models.<sup>[8]</sup> Even industry players have noted this gap: Quartix, a telematics provider, specifically built "contextual speed scoring" after observing that raw speed-vs-limit comparisons produced noisy, misleading risk signals.<sup>[9]</sup></p>
+
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Supercell_with_hail_and_severe_winds.jpg/1280px-Supercell_with_hail_and_severe_winds.jpg" alt="Stormy driving conditions" />
+        <figcaption>Driving conditions — weather, road type, traffic density — fundamentally change what any given sensor reading means. Current scoring models ignore all of this.</figcaption>
+      </figure>
+
+      <p>The data needed for context-aware scoring is not exotic. These apps already collect GPS trajectories at high frequency. Road-network attributes (curvature, grade, speed limit history, intersection density) are available from OpenStreetMap or HERE. Real-time traffic flow data is available from the same APIs that power Google Maps. Merging these layers is a well-understood engineering problem.</p>
+
+      <div class="post-divider"></div>
+
+      <h2>What a Better Model Would Look Like</h2>
+
+      <p>A more honest scoring system would ask: <em>given the road you were on and the conditions you faced, were your driving inputs appropriate?</em></p>
+
+      <p>Concretely, this means:</p>
+
+      <p><strong>Speed scoring relative to traffic flow, not just the posted limit.</strong> If every vehicle on the road is doing 72 on a 65, a driver going 71 is doing the right thing. A driver stubbornly holding 63 in the left lane is arguably the safety risk. Flow-relative speed has been shown to be a stronger accident predictor than limit-relative speed.<sup>[6]</sup></p>
+
+      <p><strong>Hard braking adjusted for road density.</strong> Driving through a grid of stop signs in a dense urban area will produce braking events that are structurally unavoidable. A model that doesn't account for stop-sign frequency and intersection density is measuring the road, not the driver.</p>
+
+      <p><strong>Cornering adjusted for road geometry.</strong> GPS and map data together can distinguish "this curve was sharp because the road is shaped that way" from "this driver cut a turn that didn't require cutting." This is not a hard problem — it requires map-matching, which CMT certainly has the capability to do.</p>
+
+      <p><strong>Contextualizing phone distraction.</strong> The phone distraction signal (screen-on while moving) is perhaps the most defensible of the five metrics as-is — distracted driving is dangerous regardless of context. Though even here, a phone interaction at 3 mph in a parking lot is not the same risk as at 65 mph on the freeway.</p>
+
+      <div class="post-divider"></div>
+
+      <h2>The Bigger Picture: A Product Gap Dressed as Innovation</h2>
+
+      <p>I don't doubt that the current CMT/State Farm model is statistically better than nothing. Their data at scale shows real correlations between these behaviors and claims.<sup>[2]</sup> And the behavioral nudge effect — knowing you're being scored makes many people drive more carefully — has real value independent of model accuracy.</p>
+
+      <p>But there is a meaningful difference between <em>a signal that correlates with risk in aggregate</em> and <em>a fair, accurate assessment of an individual driver's risk</em>. The current generation of telematics apps operates firmly in the first category while marketing itself as the second.</p>
+
+      <p>What strikes me most is the gap between what these companies are capable of building and what they have shipped. CMT has PhD-level researchers, billions of miles of trajectory data, partnerships with every major insurer, and backing from Softbank. The academic and engineering foundations for context-aware scoring have existed for over a decade. The data pipelines are in place.</p>
+
+      <p>The product that exists nonetheless ignores the road you're driving on.</p>
+
+      <p>That gap isn't primarily a technical limitation. It is, as one industry analyst put it bluntly, mostly a business model problem — these programs are structured around discount incentives at renewal, not real-time personalized risk assessment.<sup>[5]</sup> Nuance doesn't sell. A simple score does.</p>
+
+      <blockquote>
+        <p>The foundation for doing this right already exists. Even a graduate student working with publicly available data a decade ago could prototype something that made more sense. The fact that products with hundreds of millions in funding haven't closed that gap says something — mostly about incentives.</p>
+        <cite>— Personal observation</cite>
+      </blockquote>
+
+      <p>The headroom to improve this product is enormous. Context-aware telematics would be fairer to urban drivers, to drivers in road-dense environments, to anyone whose drive profile is shaped more by their city's infrastructure than their foot on the pedal. It would also, incidentally, be a better predictor of actual crash risk — which is supposed to be the whole point.</p>
+
+      <p>Until then: drive gently past every stop sign, match the speed limit regardless of traffic, and hope your commute doesn't involve any on-ramps. The app is watching — it just isn't paying attention to the road.</p>
+
+    </div>
+
+    <!-- FOOTNOTES -->
+    <div class="footnotes">
+      <h3>References</h3>
+      <ol>
+        <li>State Farm Drive Safe &amp; Save program overview. AutoInsurance.com, 2026. <a href="https://www.autoinsurance.com/companies/state-farm/drive-safe-and-save/" target="_blank">autoinsurance.com</a></li>
+        <li>Cambridge Mobile Telematics + State Farm Drive Safe &amp; Save 3.0 announcement. ProgramBusiness, 2022. <a href="https://programbusiness.com/news/safety-key-focus-state-farmr-drive-safe-savetm-mobile-30/" target="_blank">programbusiness.com</a></li>
+        <li>Drive Safe &amp; Save tracked behaviors. AutoInsurance.org, 2025. <a href="https://www.autoinsurance.org/state-farm-drive-safe-and-save-review/" target="_blank">autoinsurance.org</a></li>
+        <li>Cambridge Mobile Telematics platform enhancements. InsurTech Insights, 2024. <a href="https://www.insurtechinsights.com/cambridge-mobile-telematics-instoduces-major-enhancements-to-telematics-technology/" target="_blank">insurtechinsights.com</a></li>
+        <li>Why telematics is failing and how to fix it. Digital Insurance, 2022. <a href="https://www.dig-in.com/opinion/telematics-failing-how-to-perfect-the-science-behind-driving-rates" target="_blank">dig-in.com</a></li>
+        <li>The use of context-sensitive insurance telematics data in auto insurance rate making. ScienceDirect, 2018. <a href="https://www.sciencedirect.com/science/article/abs/pii/S096585641731128X" target="_blank">sciencedirect.com</a></li>
+        <li>Moosavi &amp; Ramnath. Context-aware driver risk prediction with telematics data. <em>Accident Analysis &amp; Prevention</em>, 2023. <a href="https://www.sciencedirect.com/science/article/pii/S0001457522003657" target="_blank">sciencedirect.com</a></li>
+        <li>Pricing motor insurance with behavioral and contextual telematics data. ScienceDirect, 2024. <a href="https://www.sciencedirect.com/science/article/pii/S2405844024125327" target="_blank">sciencedirect.com</a></li>
+        <li>Contextual speed scoring for telematics insurance. Quartix, 2024. <a href="https://www.quartix.com/en-gb/vehicle-tracking-for-insurance/contextual-speed-scoring/" target="_blank">quartix.com</a></li>
+      </ol>
+    </div>
+
+  </article>
+
+  <footer>
+    <p class="footer-copy">© 2026 Sobhan Moosavi · smoosavi.org</p>
+    <a href="/blog/" class="footer-back">← Back to blog</a>
+  </footer>
+
+</body>
+</html>

@@ -139,67 +139,53 @@
     .coming-soon {
       width: 100%;
       max-width: 900px;
-      padding: 6rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2rem;
+      padding: 4rem 2rem 6rem;
       flex: 1;
     }
 
-    .coming-soon-icon {
-      width: 56px;
-      height: 56px;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
+    .post-list {
+      display: flex; flex-direction: column; gap: 0;
     }
 
-    .coming-soon-text {
-      max-width: 48ch;
+    .post-card {
+      display: block;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: background 0.2s;
     }
+    .post-card:first-child { border-top: 1px solid var(--border); }
+    .post-card:hover .post-card-title { color: var(--accent); }
 
-    .coming-soon-text h2 {
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      font-weight: 300;
-      color: var(--ink);
+    .post-card-meta {
+      display: flex; gap: 1rem; align-items: center;
       margin-bottom: 0.75rem;
-      line-height: 1.2;
     }
-
-    .coming-soon-text p {
-      font-size: 0.95rem;
-      color: var(--ink-light);
-      line-height: 1.8;
-      margin-bottom: 0.5rem;
+    .post-tag {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--white); background: var(--accent);
+      padding: 0.2rem 0.6rem;
     }
-
-    .topic-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1.5rem;
+    .post-date {
+      font-family: var(--mono); font-size: 0.65rem;
+      color: var(--ink-faint); letter-spacing: 0.06em;
     }
-
-    .topic-tag {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.75rem;
-      background: var(--white);
+    .post-card-title {
+      font-family: var(--serif); font-size: 1.6rem;
+      font-weight: 400; color: var(--ink);
+      line-height: 1.2; margin-bottom: 0.75rem;
+      transition: color 0.2s;
     }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--accent-soft);
-      margin: 0.5rem 0;
+    .post-card-excerpt {
+      font-size: 0.9rem; color: var(--ink-light);
+      line-height: 1.75; max-width: 64ch;
+      margin-bottom: 1rem;
+    }
+    .post-card-read {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent);
     }
 
     /* FOOTER */
@@ -263,26 +249,18 @@
     </div>
 
     <div class="coming-soon">
-      <div class="coming-soon-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
-        </svg>
-      </div>
+      <div class="post-list">
 
-      <div class="coming-soon-text">
-        <h2>Coming soon.</h2>
-        <div class="divider"></div>
-        <p>Posts are on their way. I plan to write about topics I find myself thinking about most — from applied ML systems and lessons from production to ideas at the edge of research.</p>
-        <p>Check back soon, or find me on <a href="https://www.linkedin.com/in/sobhan-moosavi" target="_blank" style="color:var(--ink); text-decoration:underline; text-decoration-color:var(--accent-soft); text-underline-offset:3px;">LinkedIn</a> in the meantime.</p>
+        <a href="/blog/telematics-context/" class="post-card">
+          <div class="post-card-meta">
+            <span class="post-tag">Machine Learning</span>
+            <span class="post-date">May 2026</span>
+          </div>
+          <div class="post-card-title">Your Insurer Is Watching — But Not Listening</div>
+          <div class="post-card-excerpt">Telematics apps like State Farm's Drive Safe &amp; Save score your driving without any road context. Here's why that's a fundamental problem — and why the research to fix it already exists.</div>
+          <div class="post-card-read">Read post →</div>
+        </a>
 
-        <div class="topic-list">
-          <span class="topic-tag">Machine Learning</span>
-          <span class="topic-tag">Autonomous Driving</span>
-          <span class="topic-tag">Spatiotemporal Data</span>
-          <span class="topic-tag">Production ML</span>
-          <span class="topic-tag">Fraud Detection</span>
-          <span class="topic-tag">Research Notes</span>
-        </div>
       </div>
     </div>
   </main>
