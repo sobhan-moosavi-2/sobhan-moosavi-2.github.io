@@ -316,8 +316,18 @@
       <p>State Farm's telematics program, now in its third major version, is powered under the hood by <strong>Cambridge Mobile Telematics (CMT)</strong> — the world's largest smartphone telematics provider, whose DriveWell platform runs over 120 insurance programs across 25 countries.<sup>[2]</sup> CMT and State Farm have been partners since 2012.</p>
 
       <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/State_Farm_logo.svg/1200px-State_Farm_logo.svg.png" alt="State Farm logo" style="max-width:220px; border:none; background:transparent;" />
-        <figcaption>State Farm's Drive Safe &amp; Save is one of the most widely used telematics insurance programs in the US.</figcaption>
+        <div style="background:var(--white); border:1px solid var(--border); padding:2rem 2.5rem; display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+          <div style="display:flex; flex-direction:column; gap:0.25rem;">
+            <div style="font-family:var(--serif); font-size:2rem; font-weight:600; color:#c41230; letter-spacing:-0.01em; line-height:1;">State Farm<sup style="font-size:0.5em; vertical-align:super;">®</sup></div>
+            <div style="font-family:var(--mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint);">Drive Safe &amp; Save™</div>
+          </div>
+          <div style="width:1px; height:40px; background:var(--border); flex-shrink:0;"></div>
+          <div style="font-family:var(--mono); font-size:0.7rem; color:var(--ink-light); line-height:1.6; letter-spacing:0.03em;">
+            Powered by <span style="color:var(--ink); font-weight:400;">Cambridge Mobile Telematics</span><br/>
+            Partner since 2012 · 120+ programs globally
+          </div>
+        </div>
+        <figcaption>State Farm's Drive Safe &amp; Save is one of the most widely used telematics insurance programs in the US, powered under the hood by CMT's DriveWell platform.</figcaption>
       </figure>
 
       <p>The app uses your phone's sensors — accelerometer, gyroscope, GPS — combined with the beacon to detect when you're driving, and scores each trip on five behaviors:<sup>[3]</sup></p>
@@ -386,14 +396,31 @@
 
       <p>Here is what genuinely puzzles me: the academic literature on context-aware driving risk prediction is not new. It is not obscure. And it is not difficult to implement given the data these platforms already collect.</p>
 
-      <p>During my PhD at Ohio State, working with spatiotemporal and telematics data, context was not an afterthought — it was the central question. My 2023 paper in <em>Accident Analysis &amp; Prevention</em>, <a href="https://www.sciencedirect.com/science/article/pii/S0001457522003657" target="_blank">"Context-aware driver risk prediction with telematics data"</a>, demonstrated directly that incorporating road structure, traffic flow, and environmental conditions dramatically improves the accuracy and fairness of risk models compared to behavior-only baselines.<sup>[7]</sup></p>
+      <p>During my PhD at Ohio State, working with spatiotemporal and telematics data, context was not an afterthought — it was the central question. My 2023 paper in <em>Accident Analysis &amp; Prevention</em>, <a href="https://pubmed.ncbi.nlm.nih.gov/37696064/" target="_blank">"Context-aware driver risk prediction with telematics data"</a>, demonstrated directly that incorporating road structure, traffic flow, and environmental conditions dramatically improves the accuracy and fairness of risk models compared to behavior-only baselines.<sup>[7]</sup></p>
 
       <p>The key insight is deceptively simple: <strong>the same driving input carries radically different risk depending on where it occurs.</strong> Hard braking at 15 mph in a parking lot is noise. Hard braking at 65 mph on a rain-slicked highway is a signal. A sharp turn at a freeway cloverleaf is geometry. A sharp turn on a straight arterial is a problem.</p>
 
       <p>Broader academic work confirms this. A ScienceDirect study on context-sensitive UBI telematics found that <strong>driving at a speed significantly different from traffic flow</strong> — not just exceeding the posted limit — was among the strongest predictors of accident rate.<sup>[6]</sup> Another study found that behavioral traits like speeding <em>and</em> contextual data like road type and time of day together significantly outperform behavior-only models.<sup>[8]</sup> Even industry players have noted this gap: Quartix, a telematics provider, specifically built "contextual speed scoring" after observing that raw speed-vs-limit comparisons produced noisy, misleading risk signals.<sup>[9]</sup></p>
 
       <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Supercell_with_hail_and_severe_winds.jpg/1280px-Supercell_with_hail_and_severe_winds.jpg" alt="Stormy driving conditions" />
+        <div style="background:var(--white); border:1px solid var(--border); padding:2.5rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background-color:var(--border);">
+          <div style="background:var(--white); padding:1.25rem 1rem; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌧️</div>
+            <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-light);">Rain</div>
+          </div>
+          <div style="background:var(--white); padding:1.25rem 1rem; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌨️</div>
+            <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-light);">Snow</div>
+          </div>
+          <div style="background:var(--white); padding:1.25rem 1rem; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌁</div>
+            <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-light);">Fog</div>
+          </div>
+          <div style="background:var(--white); padding:1.25rem 1rem; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🚦</div>
+            <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-light);">Traffic</div>
+          </div>
+        </div>
         <figcaption>Driving conditions — weather, road type, traffic density — fundamentally change what any given sensor reading means. Current scoring models ignore all of this.</figcaption>
       </figure>
 
@@ -449,9 +476,9 @@
         <li>Drive Safe &amp; Save tracked behaviors. AutoInsurance.org, 2025. <a href="https://www.autoinsurance.org/state-farm-drive-safe-and-save-review/" target="_blank">autoinsurance.org</a></li>
         <li>Cambridge Mobile Telematics platform enhancements. InsurTech Insights, 2024. <a href="https://www.insurtechinsights.com/cambridge-mobile-telematics-instoduces-major-enhancements-to-telematics-technology/" target="_blank">insurtechinsights.com</a></li>
         <li>Why telematics is failing and how to fix it. Digital Insurance, 2022. <a href="https://www.dig-in.com/opinion/telematics-failing-how-to-perfect-the-science-behind-driving-rates" target="_blank">dig-in.com</a></li>
-        <li>The use of context-sensitive insurance telematics data in auto insurance rate making. ScienceDirect, 2018. <a href="https://www.sciencedirect.com/science/article/abs/pii/S096585641731128X" target="_blank">sciencedirect.com</a></li>
-        <li>Moosavi &amp; Ramnath. Context-aware driver risk prediction with telematics data. <em>Accident Analysis &amp; Prevention</em>, 2023. <a href="https://www.sciencedirect.com/science/article/pii/S0001457522003657" target="_blank">sciencedirect.com</a></li>
-        <li>Pricing motor insurance with behavioral and contextual telematics data. ScienceDirect, 2024. <a href="https://www.sciencedirect.com/science/article/pii/S2405844024125327" target="_blank">sciencedirect.com</a></li>
+        <li>Ma et al. The use of context-sensitive insurance telematics data in auto insurance rate making. <em>Transportation Research Part A</em>, 2018. doi:10.1016/j.tra.2018.04.013. <a href="https://www.researchgate.net/publication/324587916_The_Use_of_Context-Sensitive_Insurance_Telematics_Data_in_Auto_Insurance_Rate_Making" target="_blank">researchgate.net</a></li>
+        <li>Moosavi &amp; Ramnath. Context-aware driver risk prediction with telematics data. <em>Accident Analysis &amp; Prevention</em>, 2023. doi:10.1016/j.aap.2023.107269. <a href="https://pubmed.ncbi.nlm.nih.gov/37696064/" target="_blank">pubmed.ncbi.nlm.nih.gov</a></li>
+        <li>Masello et al. Pricing weekly motor insurance with behavioral and contextual telematics data. <em>Heliyon</em>, 2024. doi:10.1016/j.heliyon.2024.e38042. <a href="https://www.sciencedirect.com/science/article/pii/S2405844024125327" target="_blank">sciencedirect.com (open access)</a></li>
         <li>Contextual speed scoring for telematics insurance. Quartix, 2024. <a href="https://www.quartix.com/en-gb/vehicle-tracking-for-insurance/contextual-speed-scoring/" target="_blank">quartix.com</a></li>
       </ol>
     </div>
